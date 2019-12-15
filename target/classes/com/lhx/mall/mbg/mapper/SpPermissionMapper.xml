@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lhx.mall.mbg.mapper.SpPermissionMapper">
+  <resultMap id="BaseResultMap" type="com.lhx.mall.mbg.model.SpPermission">
+    <id column="ps_id" jdbcType="SMALLINT" property="psId" />
+    <result column="ps_name" jdbcType="VARCHAR" property="psName" />
+    <result column="ps_pid" jdbcType="SMALLINT" property="psPid" />
+    <result column="ps_c" jdbcType="VARCHAR" property="psC" />
+    <result column="ps_a" jdbcType="VARCHAR" property="psA" />
+    <result column="ps_level" jdbcType="CHAR" property="psLevel" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ps_id, ps_name, ps_pid, ps_c, ps_a, ps_level
+  </sql>
+  <select id="selectByExample" parameterType="com.lhx.mall.mbg.model.SpPermissionExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sp_permission
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Short" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sp_permission
+    where ps_id = #{psId,jdbcType=SMALLINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Short">
+    delete from sp_permission
+    where ps_id = #{psId,jdbcType=SMALLINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lhx.mall.mbg.model.SpPermissionExample">
+    delete from sp_permission
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lhx.mall.mbg.model.SpPermission">
+    insert into sp_permission (ps_id, ps_name, ps_pid, 
+      ps_c, ps_a, ps_level)
+    values (#{psId,jdbcType=SMALLINT}, #{psName,jdbcType=VARCHAR}, #{psPid,jdbcType=SMALLINT}, 
+      #{psC,jdbcType=VARCHAR}, #{psA,jdbcType=VARCHAR}, #{psLevel,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lhx.mall.mbg.model.SpPermission">
+    insert into sp_permission
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="psId != null">
+        ps_id,
+      </if>
+      <if test="psName != null">
+        ps_name,
+      </if>
+      <if test="psPid != null">
+        ps_pid,
+      </if>
+      <if test="psC != null">
+        ps_c,
+      </if>
+      <if test="psA != null">
+        ps_a,
+      </if>
+      <if test="psLevel != null">
+        ps_level,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="psId != null">
+        #{psId,jdbcType=SMALLINT},
+      </if>
+      <if test="psName != null">
+        #{psName,jdbcType=VARCHAR},
+      </if>
+      <if test="psPid != null">
+        #{psPid,jdbcType=SMALLINT},
+      </if>
+      <if test="psC != null">
+        #{psC,jdbcType=VARCHAR},
+      </if>
+      <if test="psA != null">
+        #{psA,jdbcType=VARCHAR},
+      </if>
+      <if test="psLevel != null">
+        #{psLevel,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lhx.mall.mbg.model.SpPermissionExample" resultType="java.lang.Integer">
+    select count(*) from sp_permission
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update sp_permission
+    <set>
+      <if test="record.psId != null">
+        ps_id = #{record.psId,jdbcType=SMALLINT},
+      </if>
+      <if test="record.psName != null">
+        ps_name = #{record.psName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.psPid != null">
+        ps_pid = #{record.psPid,jdbcType=SMALLINT},
+      </if>
+      <if test="record.psC != null">
+        ps_c = #{record.psC,jdbcType=VARCHAR},
+      </if>
+      <if test="record.psA != null">
+        ps_a = #{record.psA,jdbcType=VARCHAR},
+      </if>
+      <if test="record.psLevel != null">
+        ps_level = #{record.psLevel,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update sp_permission
+    set ps_id = #{record.psId,jdbcType=SMALLINT},
+      ps_name = #{record.psName,jdbcType=VARCHAR},
+      ps_pid = #{record.psPid,jdbcType=SMALLINT},
+      ps_c = #{record.psC,jdbcType=VARCHAR},
+      ps_a = #{record.psA,jdbcType=VARCHAR},
+      ps_level = #{record.psLevel,jdbcType=CHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lhx.mall.mbg.model.SpPermission">
+    update sp_permission
+    <set>
+      <if test="psName != null">
+        ps_name = #{psName,jdbcType=VARCHAR},
+      </if>
+      <if test="psPid != null">
+        ps_pid = #{psPid,jdbcType=SMALLINT},
+      </if>
+      <if test="psC != null">
+        ps_c = #{psC,jdbcType=VARCHAR},
+      </if>
+      <if test="psA != null">
+        ps_a = #{psA,jdbcType=VARCHAR},
+      </if>
+      <if test="psLevel != null">
+        ps_level = #{psLevel,jdbcType=CHAR},
+      </if>
+    </set>
+    where ps_id = #{psId,jdbcType=SMALLINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lhx.mall.mbg.model.SpPermission">
+    update sp_permission
+    set ps_name = #{psName,jdbcType=VARCHAR},
+      ps_pid = #{psPid,jdbcType=SMALLINT},
+      ps_c = #{psC,jdbcType=VARCHAR},
+      ps_a = #{psA,jdbcType=VARCHAR},
+      ps_level = #{psLevel,jdbcType=CHAR}
+    where ps_id = #{psId,jdbcType=SMALLINT}
+  </update>
+</mapper>
